@@ -25,10 +25,11 @@
   #   enable = true;
   #   openFirewall = true;
   # };
-  environment.systemPackages = [
-    pkgs.jellyfin
-    pkgs.jellyfin-web
-    pkgs.jellyfin-ffmpeg
-    pkgs.jellyseerr
+  environment.systemPackages = with pkgs; [
+    jellyfin
+    jellyfin-web
+    jellyfin-ffmpeg
+    jellyseerr
+    intel-gpu-tools # for verifying hardware acceleration
   ];
 }

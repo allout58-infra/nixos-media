@@ -49,6 +49,7 @@
         nixos-common.nixosModules.env.common
         nixos-common.nixosModules.net.firewall
         nixos-common.nixosModules.net.tailscale
+        nixos-common.nixosModules.workloads.diag
       ];
     };
 
