@@ -43,12 +43,12 @@
         ./configuration.nix
         ./media-mnt.nix
         ./jellyfin.nix
-        # agenix.nixosModules.default
-        # nixos-common.nixosModules.users
-        # nixos-common.nixosModules.workloads.ssh
-        # nixos-common.nixosModules.env.common
-        # nixos-common.nixosModules.net.firewall
-        # nixos-common.nixosModules.net.tailscale
+        agenix.nixosModules.default
+        nixos-common.nixosModules.users
+        nixos-common.nixosModules.workloads.ssh
+        nixos-common.nixosModules.env.common
+        nixos-common.nixosModules.net.firewall
+        nixos-common.nixosModules.net.tailscale
       ];
     };
 
