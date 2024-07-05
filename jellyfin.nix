@@ -21,10 +21,10 @@
     enable = true;
     openFirewall = true;
   };
-  # services.jellyseer = {
-  #   enable = true;
-  #   openFirewall = true;
-  # };
+  services.jellyseerr = {
+    enable = true;
+    openFirewall = true;
+  };
   environment.systemPackages = with pkgs; [
     jellyfin
     jellyfin-web
