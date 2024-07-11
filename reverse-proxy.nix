@@ -20,19 +20,18 @@
         SSL = {
           addSSL = true;
           enableACME = true;
+          acmeRoot = null;
         };
       in {
-        "jellyfin" =
+        "jellyfin.home.jameshollowell.com" =
           SSL
           // {
             locations."/".proxyPass = "http://localhost:8096";
-            serverAliases = ["jellyfin.home.jameshollowell.com"];
           };
-        "jellyseerr" =
+        "jellyseerr.home.jameshollowell.com" =
           SSL
           // {
             locations."/".proxyPass = "http://localhost:5055";
-            serverAliases = ["jellyseer.home.jameshollowell.com"];
           };
       };
     };

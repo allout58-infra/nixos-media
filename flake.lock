@@ -49,11 +49,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1720657122,
-        "narHash": "sha256-uTfnOCCTP1lm/725TddGgRrprWrVfE+M1ttuwtQAZM0=",
+        "lastModified": 1720657799,
+        "narHash": "sha256-JS994RW4DAIVoncPJAtzyHceA0iJqqHrp/rXOGi0KG0=",
         "owner": "allout58-infra",
         "repo": "nixos-common",
-        "rev": "730b23921c8f90ec8b7624e9312f8d5ed291dea6",
+        "rev": "3e2c3e28f5fd4c1e92ee0130ad23e75340b8bd9e",
         "type": "github"
       },
       "original": {
