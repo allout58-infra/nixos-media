@@ -43,6 +43,7 @@
         ./configuration.nix
         ./media-mnt.nix
         ./jellyfin.nix
+        ./reverse-proxy.nix
         agenix.nixosModules.default
         nixos-common.nixosModules.users
         nixos-common.nixosModules.workloads.ssh
