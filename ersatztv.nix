@@ -8,4 +8,6 @@
     enable = true;
     openFirewall = true;
   };
+
+  environment.systemPackages = [ pkgs-me.ersatztv ];
 }
