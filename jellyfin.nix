@@ -31,5 +31,6 @@
     jellyfin-ffmpeg
     jellyseerr
     intel-gpu-tools # for verifying hardware acceleration
+    libva-utils
   ];
 }
