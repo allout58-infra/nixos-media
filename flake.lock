@@ -78,13 +78,28 @@
         "type": "github"
       }
     },
+    "nixpkgs-me": {
+      "locked": {
+        "lastModified": 1720838936,
+        "narHash": "sha256-/ROK8aPFcARQWyEtwgiK4e8xHF/QuZHWiekwaaGs/z4=",
+        "owner": "allout58",
+        "repo": "nixpkgs",
+        "rev": "8818e3f8d56da4fc1b778bc2717701711e810e2c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "allout58",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1720553833,
-        "narHash": "sha256-IXMiHQMtdShDXcBW95ctA+m5Oq2kLxnBt7WlMxvDQXA=",
+        "lastModified": 1720823163,
+        "narHash": "sha256-FZ5dnrvKkln9ESdoTR8R7GKW9rNpXNZrxGsOXsbsTpE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "249fbde2a178a2ea2638b65b9ecebd531b338cf9",
+        "rev": "f12ee5f64c6a09995e71c9626d88c4efa983b488",
         "type": "github"
       },
       "original": {
@@ -98,7 +113,8 @@
       "inputs": {
         "agenix": "agenix",
         "nixos-common": "nixos-common",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "nixpkgs-me": "nixpkgs-me"
       }
     },
     "systems": {
