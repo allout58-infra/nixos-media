@@ -85,9 +85,9 @@ in
           ExecStart = "${getExe cfg.package}";
           Restart = "on-failure";
           Environment = {
-            ETV_CONFIG_FOLDER = cfg.configDir;
-            ETV_TRANSCODE_FOLDER = cfg.transcodeDir;
-            ETV_BASE_URL = cfg.baseUrl;
+            ETV_CONFIG_FOLDER = "${cfg.configDir}";
+            ETV_TRANSCODE_FOLDER = "${cfg.transcodeDir}";
+            ETV_BASE_URL = "${cfg.baseUrl}";
           };
         };
       };
