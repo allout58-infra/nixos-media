@@ -80,11 +80,11 @@
     },
     "nixpkgs-me": {
       "locked": {
-        "lastModified": 1720838936,
-        "narHash": "sha256-/ROK8aPFcARQWyEtwgiK4e8xHF/QuZHWiekwaaGs/z4=",
+        "lastModified": 1720982080,
+        "narHash": "sha256-4mK3aL3kWPf1djtlUSVLvNEnCdx7g4mj1B3zYLKbPHQ=",
         "owner": "allout58",
         "repo": "nixpkgs",
-        "rev": "8818e3f8d56da4fc1b778bc2717701711e810e2c",
+        "rev": "23248c87856092a63bbba9cec4247692174631e9",
         "type": "github"
       },
       "original": {
