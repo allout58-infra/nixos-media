@@ -4,9 +4,8 @@
   dotnetCorePackages,
   buildDotnetModule,
   sqlite,
-  ffmpeg
+  ffmpeg,
 }:
-
 buildDotnetModule rec {
   pname = "ersatztv";
   version = "0.8.7-beta";
@@ -18,18 +17,21 @@ buildDotnetModule rec {
     sha256 = "sha256-G3yw9aYZABEyghCddpAoO71wrjVbWiVJALEMZSbr2Lg=";
   };
 
-  propagatedBuildInputs = [ sqlite ];
+  propagatedBuildInputs = [sqlite];
 
-  buildInputs = [ ffmpeg ];
+  buildInputs = [ffmpeg];
 
   projectFile = "ErsatzTV/ErsatzTV.csproj";
-  executables = [ "ErsatzTV" "ErsatzTV.Scanner" ];
+  executables = ["ErsatzTV" "ErsatzTV.Scanner"];
   nugetDeps = ./nuget-deps.nix;
   dotnet-sdk = dotnetCorePackages.sdk_8_0;
   dotnet-runtime = dotnetCorePackages.aspnetcore_8_0;
 
   makeWrapperArgs = [
-    "--suffix" "PATH" ":" "${ffmpeg}/bin"
+    "--suffix"
+    "PATH"
+    ":"
+    "${ffmpeg}/bin"
   ];
 
   passthru.updateScript = ./update.sh;

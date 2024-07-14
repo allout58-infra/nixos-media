@@ -1,16 +1,18 @@
-{ config, pkgs, lib, ... }:
-
-let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
   inherit (lib) mkIf getExe maintainers mkEnableOption mkOption mkPackageOption;
   inherit (lib.types) str path bool;
   cfg = config.services.ersatztv;
-in
-{
+in {
   options = {
     services.ersatztv = {
       enable = mkEnableOption "ErsatzTV";
 
-      package = mkPackageOption pkgs "ersatztv" { };
+      package = mkPackageOption pkgs "ersatztv" {};
 
       user = mkOption {
         type = str;
@@ -72,9 +74,9 @@ in
       };
       services.ersatztv = {
         description = "ErsatzTV";
-        after = [ "network-online.target" ];
-        wants = [ "network-online.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network-online.target"];
+        wants = ["network-online.target"];
+        wantedBy = ["multi-user.target"];
 
         serviceConfig = {
           Type = "simple";
@@ -84,11 +86,12 @@ in
           WorkingDirectory = cfg.configDir;
           ExecStart = "${getExe cfg.package}";
           Restart = "on-failure";
-          Environment = {
-            ETV_CONFIG_FOLDER = "${cfg.configDir}";
-            ETV_TRANSCODE_FOLDER = "${cfg.transcodeDir}";
-            ETV_BASE_URL = "${cfg.baseUrl}";
-          };
+        };
+
+        environment = {
+          ETV_CONFIG_FOLDER = "${cfg.configDir}";
+          ETV_TRANSCODE_FOLDER = "${cfg.transcodeDir}";
+          ETV_BASE_URL = "${cfg.baseUrl}";
         };
       };
     };
@@ -106,10 +109,9 @@ in
 
     networking.firewall = mkIf cfg.openFirewall {
       # from https://ersatztv.org/docs/user-guide/install#manual-installation-2
-      allowedTCPPorts = [ 8409 ];
+      allowedTCPPorts = [8409];
     };
-
   };
 
-  meta.maintainers = with maintainers; [ allout58 ];
+  meta.maintainers = with maintainers; [allout58];
 }

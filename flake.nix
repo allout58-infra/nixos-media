@@ -42,14 +42,14 @@
     # nixosConfigurations."<hostname>".config.system.build.toplevel must be a derivation
     nixosConfigurations.nix-media = nixpkgs.lib.nixosSystem {
       system = "${system}";
-      specialArgs = { 
-        pkgs-me = import nixpkgs-me { inherit system; };
-       };
+      specialArgs = {
+        pkgs-me = import nixpkgs-me {inherit system;};
+      };
       modules = [
         ./configuration.nix
         ./media-mnt.nix
         ./jellyfin.nix
-        ./ersatztv.nix 
+        ./ersatztv.nix
         ./reverse-proxy.nix
         agenix.nixosModules.default
         nixos-common.nixosModules.users
