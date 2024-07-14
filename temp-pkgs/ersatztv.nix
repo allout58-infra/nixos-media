@@ -40,6 +40,14 @@ in
         '';
       };
 
+      baseUrl = mkOption {
+        type = str;
+        default = "";
+        description = ''
+          Base URL to support reverse proxies that use paths (e.g. `/ersatztv`)
+        '';
+      };
+
       openFirewall = mkOption {
         type = bool;
         default = false;
@@ -76,31 +84,11 @@ in
           WorkingDirectory = cfg.configDir;
           ExecStart = "${getExe cfg.package}";
           Restart = "on-failure";
-
-          # Security options:
-          # NoNewPrivileges = true;
-          # SystemCallArchitectures = "native";
-          # # AF_NETLINK needed because Jellyfin monitors the network connection
-          # RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" ];
-          # RestrictNamespaces = !config.boot.isContainer;
-          # RestrictRealtime = true;
-          # RestrictSUIDSGID = true;
-          # ProtectControlGroups = !config.boot.isContainer;
-          # ProtectHostname = true;
-          # ProtectKernelLogs = !config.boot.isContainer;
-          # ProtectKernelModules = !config.boot.isContainer;
-          # ProtectKernelTunables = !config.boot.isContainer;
-          # LockPersonality = true;
-          # PrivateTmp = !config.boot.isContainer;
-          # # needed for hardware acceleration
-          # PrivateDevices = false;
-          # PrivateUsers = true;
-          # RemoveIPC = true;
-
-          # SystemCallFilter = [
-          #   "~@clock" "~@aio" "~@chown" "~@cpu-emulation" "~@debug" "~@keyring" "~@memlock" "~@module" "~@mount" "~@obsolete" "~@privileged" "~@raw-io" "~@reboot" "~@setuid" "~@swap"
-          # ];
-          # SystemCallErrorNumber = "EPERM";
+          Environment = {
+            ETV_CONFIG_FOLDER = cfg.configDir;
+            ETV_TRANSCODE_FOLDER = cfg.transcodeDir;
+            ETV_BASE_URL = cfg.baseUrl;
+          };
         };
       };
     };
