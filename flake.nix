@@ -46,7 +46,7 @@
   in {
     # Used with `nixos-rebuild --flake .#<hostname>`
     # nixosConfigurations."<hostname>".config.system.build.toplevel must be a derivation
-    nixosConfigurations.nix-media = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.nixos-media = nixpkgs.lib.nixosSystem {
       system = "${system}";
       specialArgs = {
         pkgs-me = import nixpkgs-me {inherit system;};
