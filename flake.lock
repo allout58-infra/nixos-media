@@ -70,11 +70,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1721849838,
-        "narHash": "sha256-UqgU3tx0gGhS41HHyjK2ZrcAzWgs+nOL0bQWQ5R3oUQ=",
+        "lastModified": 1721850276,
+        "narHash": "sha256-zRsutpUT7wqKCGLvdGm+VuwcHQO+31NvtbzVlZl/U68=",
         "owner": "allout58-infra",
         "repo": "nixos-common",
-        "rev": "36c168be16ede9f374bc98ec73c9866b101c9baa",
+        "rev": "b764708037f0c787114f152374ea7a8b97ea2367",
         "type": "github"
       },
       "original": {
