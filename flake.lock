@@ -23,6 +23,23 @@
         "type": "github"
       }
     },
+    "allout58-dotfiles": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1720471600,
+        "narHash": "sha256-Ck+Vg95nxdqJFtp6MVdhTV7RWw1XfGh0swxHdT27xkk=",
+        "owner": "allout58",
+        "repo": "dotfiles",
+        "rev": "ed82212c5923b715384079666a15e62c1cdf846b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "allout58",
+        "ref": "main",
+        "repo": "dotfiles",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -67,14 +84,15 @@
     },
     "nixos-common": {
       "inputs": {
+        "allout58-dotfiles": "allout58-dotfiles",
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1721850770,
-        "narHash": "sha256-tuxEk5D43GLX3aUBVtPOnLQFPJDgL2CCnK3R2U6QnLI=",
+        "lastModified": 1721851447,
+        "narHash": "sha256-KC7nnsmxIKGFKLD7XMmDnmVeLwXXNEe39uyyfNLlizE=",
         "owner": "allout58-infra",
         "repo": "nixos-common",
-        "rev": "a92851a56dcd92bcb7e71ea9f73790bbc7f9b8a0",
+        "rev": "e4947a5f1cf11c1d4d90e2be94d6d55eeb70ac89",
         "type": "github"
       },
       "original": {
