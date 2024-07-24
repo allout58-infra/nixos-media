@@ -17,6 +17,11 @@
   inputs.agenix.inputs.darwin.follows = "";
   # endregion
 
+  inputs.home-manager = {
+    url = "github:nix-community/home-manager/release-24.05";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
   inputs.nixos-common.url = "github:allout58-infra/nixos-common";
 
   # It is also possible to "inherit" an input from another input. This is useful to minimize
@@ -34,6 +39,7 @@
     agenix,
     nixos-common,
     nixpkgs-me,
+    home-manager,
     ...
   }: let
     system = "x86_64-linux";
@@ -58,6 +64,12 @@
         nixos-common.nixosModules.net.firewall
         nixos-common.nixosModules.net.tailscale
         nixos-common.nixosModules.workloads.diag
+
+        home-manager.nixosModules.home-manager {
+          home-manager.useGlobalPkgs = true;
+
+          home-manager.users.jhollowell = nixos-common.nixosModules.home-manager.jhollowell;
+        }
       ];
     };
 

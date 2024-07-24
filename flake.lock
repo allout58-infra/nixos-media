@@ -44,16 +44,37 @@
         "type": "github"
       }
     },
+    "home-manager_2": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1720042825,
+        "narHash": "sha256-A0vrUB6x82/jvf17qPCpxaM+ulJnD8YZwH9Ci0BsAzE=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "e1391fb22e18a36f57e6999c7a9f966dc80ac073",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "ref": "release-24.05",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
     "nixos-common": {
       "inputs": {
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1720659775,
-        "narHash": "sha256-MgGCXi2JVDjkR5bOhlJFpexKA0VE5uvvdHbywfxRgko=",
+        "lastModified": 1721848792,
+        "narHash": "sha256-nKPQ9peM/I1U31CeqJtUGKpyFv5KPkzn2iVHj1GYys8=",
         "owner": "allout58-infra",
         "repo": "nixos-common",
-        "rev": "42146564dca3f403a7f28d4f655531c403baaa51",
+        "rev": "c6f830c8a623c22638e9747ade8d3dd21730c15b",
         "type": "github"
       },
       "original": {
@@ -112,6 +133,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "home-manager": "home-manager_2",
         "nixos-common": "nixos-common",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-me": "nixpkgs-me"
