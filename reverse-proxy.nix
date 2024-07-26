@@ -26,7 +26,15 @@ in {
     };
 
     # create a oneshot job to authenticate to Tailscale
-    systemd.services.tailscale-cert = {
+    systemd = {
+      tmpfiles.settings.tailscaleCertDir = {
+        "${tailscaleCertDir}"."d" = {
+          mode = "740";
+          user = "root";
+          group = config.services.nginx.group;
+        };
+      };
+    services.tailscale-cert = {
       description = "Create Tailscale TLS certificate";
 
       # make sure tailscale is running before trying to connect to tailscale
@@ -46,15 +54,18 @@ in {
         # check if out certificate is expiring in the next 30 days (or doesn't exist yet)
         ${openssl}/bin/openssl x509 -noout -in ${tailscaleCertDir}/${tailscaleName}.crt -checkend 2592000
         if [ $? -eq 0 ]; then # if so, then do nothing
+          echo "Cert is good"
           exit 0
         fi
         set -e
+        echo "Certificate either does not exist or is expiring, renewing..."
 
         # otherwise get a new cert from tailscale
         ${tailscale}/bin/tailscale cert --cert-file ${tailscaleCertDir}/${tailscaleName}.crt --key-file ${tailscaleCertDir}/${tailscaleName}.key ${tailscaleName}
+        echo "Done!"
       '';
     };
-
+    };
     #     systemd.timers.tailscale-cert-autorenew = {
     #       wantedBy = ["timers.target"];
     #       timerConfig = {
