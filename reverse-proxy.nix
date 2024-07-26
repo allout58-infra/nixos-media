@@ -41,13 +41,14 @@ in {
         # wait for tailscaled to settle
         sleep 2
 
-        set +x
+        # set -e gets automatically prepended, we need to not do that here
+        set +e
         # check if out certificate is expiring in the next 30 days (or doesn't exist yet)
         ${openssl}/bin/openssl x509 -noout -in ${tailscaleCertDir}/${tailscaleName}.crt -checkend 2592000
         if [ $? -eq 0 ]; then # if so, then do nothing
           exit 0
         fi
-        set -x
+        set -e
 
         # otherwise get a new cert from tailscale
         ${tailscale}/bin/tailscale cert --cert-file ${tailscaleCertDir}/${tailscaleName}.crt --key-file ${tailscaleCertDir}/${tailscaleName}.key ${tailscaleName}
