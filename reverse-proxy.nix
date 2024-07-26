@@ -29,7 +29,7 @@ in {
     systemd = {
       tmpfiles.settings.tailscaleCertDir = {
         "${tailscaleCertDir}"."d" = {
-          mode = "740";
+          mode = "750";
           user = "root";
           group = config.services.nginx.group;
         };
@@ -62,6 +62,11 @@ in {
 
         # otherwise get a new cert from tailscale
         ${tailscale}/bin/tailscale cert --cert-file ${tailscaleCertDir}/${tailscaleName}.crt --key-file ${tailscaleCertDir}/${tailscaleName}.key ${tailscaleName}
+        echo "Done! Setting permissions..."
+        # Make the key group readable (by default only, it's 600)
+        ${coreutils}/bin/chmod g+r ${tailscaleCertDir}/${tailscaleName}.key
+        # Make the Nginx group the owner of both the key and cert so it can see them
+        ${coreutils}/bin/chgrp ${config.services.nginx.group}  ${tailscaleCertDir}/${tailscaleName}.crt ${tailscaleCertDir}/${tailscaleName}.key 
         echo "Done!"
       '';
     };
