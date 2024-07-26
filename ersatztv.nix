@@ -9,5 +9,5 @@
     openFirewall = true;
   };
 
-  environment.systemPackages = [ pkgs-me.ersatztv ];
+  environment.systemPackages = [pkgs-me.ersatztv];
 }

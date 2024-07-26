@@ -65,7 +65,8 @@
         nixos-common.nixosModules.net.tailscale
         nixos-common.nixosModules.workloads.diag
 
-        home-manager.nixosModules.home-manager {
+        home-manager.nixosModules.home-manager
+        {
           home-manager.useGlobalPkgs = true;
 
           home-manager.users.jhollowell = nixos-common.nixosModules.home-manager.jhollowell;

@@ -1,4 +1,11 @@
-{config, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: let
+  tailscaleName = "nixos-media.buffalo-catfish.ts.net";
+  tailscaleCertDir = "/var/lib/ts-cert";
+in {
   config = {
     networking.firewall.allowedTCPPorts = [80 443];
     security.acme = {
@@ -18,25 +25,67 @@
       };
     };
 
+    # create a oneshot job to authenticate to Tailscale
+    systemd.services.tailscale-cert = {
+      description = "Create Tailscale TLS certificate";
+
+      # make sure tailscale is running before trying to connect to tailscale
+      after = ["network-pre.target" "tailscale.service"];
+      wants = ["network-pre.target" "tailscale.service"];
+
+      # set this service as a oneshot job
+      serviceConfig.Type = "oneshot";
+
+      # have the job run this shell script
+      script = with pkgs; ''
+        # wait for tailscaled to settle
+        sleep 2
+
+        # check if out certificate is expiring in the next 30 days (or doesn't exist yet)
+        ${openssl}/bin/openssl x509 -noout -in ${tailscaleCertDir}/${tailscaleName}.crt -checkend 2592000
+        if [ $? -eq 0 ]; then # if so, then do nothing
+          exit 0
+        fi
+
+        # otherwise get a new cert from tailscale
+        ${tailscale}/bin/tailscale cert --cert-file ${tailscaleCertDir}/${tailscaleName}.crt --key-file ${tailscaleCertDir}/${tailscaleName}.key ${tailscaleName}
+      '';
+    };
+
+    #     systemd.timers.tailscale-cert-autorenew = {
+    #       wantedBy = ["timers.target"];
+    #       timerConfig = {
+    # #The following example starts once a day (at 12:00am). When activated, it triggers the service immediately if it missed the last start time (option Persistent=true), for example due to the system being powered off.
+    #         OnCalendar = "daily";
+    #         Persistent = true;
+    #         Unit = "tailscale-cert.service";
+    #       };
+    #     };
+
     services.nginx = {
       enable = true;
       virtualHosts = let
-        SSL = {
+        acmeSSL = {
           addSSL = true;
           enableACME = true;
           acmeRoot = null;
         };
+        tailscaleSsl = {
+          addSSL = true;
+          sslCertificate = "${tailscaleCertDir}/${tailscaleName}.crt";
+          sslCertificateKey = "${tailscaleCertDir}/${tailscaleName}.key";
+        };
+        jellyfinProxyPass = {
+          locations."/".proxyPass = "http://localhost:8096";
+        };
       in {
-        "jellyfin.home.jameshollowell.com" =
-          SSL
-          // {
-            locations."/".proxyPass = "http://localhost:8096";
-          };
+        "jellyfin.home.jameshollowell.com" = acmeSSL // jellyfinProxyPass;
         "jellyseerr.home.jameshollowell.com" =
-          SSL
+          acmeSSL
           // {
             locations."/".proxyPass = "http://localhost:5055";
           };
+        "${tailscaleName}" = tailscaleSsl // jellyfinProxyPass;
       };
     };
   };
