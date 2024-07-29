@@ -3,16 +3,31 @@
   pkgs,
   lib,
   ...
-}: let
-  inherit (lib) mkIf getExe maintainers mkEnableOption mkOption mkPackageOption;
-  inherit (lib.types) str path bool;
+}:
+
+let
+  inherit (lib)
+    mkIf
+    getExe
+    maintainers
+    mkEnableOption
+    mkOption
+    mkPackageOption
+    ;
+  inherit (lib.types)
+    str
+    path
+    bool
+    port
+    ;
   cfg = config.services.ersatztv;
-in {
+in
+{
   options = {
     services.ersatztv = {
       enable = mkEnableOption "ErsatzTV";
 
-      package = mkPackageOption pkgs "ersatztv" {};
+      package = mkPackageOption pkgs "ersatztv" { };
 
       user = mkOption {
         type = str;
@@ -44,9 +59,17 @@ in {
 
       baseUrl = mkOption {
         type = str;
-        default = "";
+        default = "/";
         description = ''
           Base URL to support reverse proxies that use paths (e.g. `/ersatztv`)
+        '';
+      };
+
+      port = mkOption {
+        type = port;
+        default = 8409;
+        description = ''
+          Port to run on
         '';
       };
 
@@ -54,7 +77,7 @@ in {
         type = bool;
         default = false;
         description = ''
-          Open the default ports in the firewall for the server.
+          Open the port in the firewall for the server.
         '';
       };
     };
@@ -74,9 +97,9 @@ in {
       };
       services.ersatztv = {
         description = "ErsatzTV";
-        after = ["network-online.target"];
-        wants = ["network-online.target"];
-        wantedBy = ["multi-user.target"];
+        after = [ "network-online.target" ];
+        wants = [ "network-online.target" ];
+        wantedBy = [ "multi-user.target" ];
 
         serviceConfig = {
           Type = "simple";
@@ -84,14 +107,15 @@ in {
           Group = cfg.group;
           UMask = "0077";
           WorkingDirectory = cfg.configDir;
-          ExecStart = "${getExe cfg.package}";
+          ExecStart = getExe cfg.package;
           Restart = "on-failure";
         };
 
         environment = {
-          ETV_CONFIG_FOLDER = "${cfg.configDir}";
-          ETV_TRANSCODE_FOLDER = "${cfg.transcodeDir}";
-          ETV_BASE_URL = "${cfg.baseUrl}";
+          ETV_CONFIG_FOLDER = cfg.configDir;
+          ETV_TRANSCODE_FOLDER = cfg.transcodeDir;
+          ETV_BASE_URL = cfg.baseUrl;
+          ASPNETCORE_HTTP_URLS = "http://*:${builtins.toString cfg.port}";
         };
       };
     };
@@ -103,15 +127,14 @@ in {
       };
     };
 
-    users.groups = mkIf (cfg.group == "ersatztv") {
-      ersatztv = {};
-    };
+    users.groups = mkIf (cfg.group == "ersatztv") { ersatztv = { }; };
 
     networking.firewall = mkIf cfg.openFirewall {
       # from https://ersatztv.org/docs/user-guide/install#manual-installation-2
-      allowedTCPPorts = [8409];
+      allowedTCPPorts = [ cfg.port ];
     };
+
   };
 
-  meta.maintainers = with maintainers; [allout58];
+  meta.maintainers = with maintainers; [ allout58 ];
 }
