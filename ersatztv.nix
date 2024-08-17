@@ -7,7 +7,6 @@
     package = pkgs-me.ersatztv;
     enable = true;
     openFirewall = true;
-    port = 9021;
   };
 
   environment.systemPackages = [pkgs-me.ersatztv];

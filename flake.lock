@@ -84,15 +84,18 @@
     },
     "nixos-common": {
       "inputs": {
+        "agenix": [
+          "agenix"
+        ],
         "allout58-dotfiles": "allout58-dotfiles",
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1723925138,
-        "narHash": "sha256-t8oe3/aERaPgD3PUK8H4ld1WG/giMj63ndGV8gCE6GA=",
+        "lastModified": 1723925769,
+        "narHash": "sha256-zj+Hp8iKKyS2ZMLM9da293Bdk59H1EMmJ4fD+b2+FSU=",
         "owner": "allout58-infra",
         "repo": "nixos-common",
-        "rev": "949dbb1d4b93049cc31e6bfbe876cf6e94e2e329",
+        "rev": "215e07ffbc14e9e2f1d1e2322f10c54263bb5d1c",
         "type": "github"
       },
       "original": {

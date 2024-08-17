@@ -23,6 +23,7 @@
   };
 
   inputs.nixos-common.url = "github:allout58-infra/nixos-common";
+  inputs.nixos-common.inputs.agenix.follows = "agenix";
 
   # It is also possible to "inherit" an input from another input. This is useful to minimize
   # flake dependencies. For example, the following sets the nixpkgs input of the top-level flake
