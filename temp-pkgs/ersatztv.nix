@@ -3,10 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkIf
     getExe
     maintainers
@@ -16,13 +15,12 @@ let
     ;
   inherit (lib.types) str path bool;
   cfg = config.services.ersatztv;
-in
-{
+in {
   options = {
     services.ersatztv = {
       enable = mkEnableOption "ErsatzTV";
 
-      package = mkPackageOption pkgs "ersatztv" { };
+      package = mkPackageOption pkgs "ersatztv" {};
 
       user = mkOption {
         type = str;
@@ -84,9 +82,9 @@ in
       };
       services.ersatztv = {
         description = "ErsatzTV";
-        after = [ "network-online.target" ];
-        wants = [ "network-online.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network-online.target"];
+        wants = ["network-online.target"];
+        wantedBy = ["multi-user.target"];
 
         serviceConfig = {
           Type = "simple";
@@ -113,14 +111,13 @@ in
       };
     };
 
-    users.groups = mkIf (cfg.group == "ersatztv") { ersatztv = { }; };
+    users.groups = mkIf (cfg.group == "ersatztv") {ersatztv = {};};
 
     networking.firewall = mkIf cfg.openFirewall {
       # from https://ersatztv.org/docs/user-guide/install#manual-installation-2
-      allowedTCPPorts = [ 8409 ];
+      allowedTCPPorts = [8409];
     };
-
   };
 
-  meta.maintainers = with maintainers; [ allout58 ];
+  meta.maintainers = with maintainers; [allout58];
 }
