@@ -59,6 +59,7 @@
         ./ersatztv.nix
         ./reverse-proxy.nix
         agenix.nixosModules.default
+        nixos-common.nixosModules.secrets
         nixos-common.nixosModules.users
         nixos-common.nixosModules.workloads.ssh
         nixos-common.nixosModules.env.common
