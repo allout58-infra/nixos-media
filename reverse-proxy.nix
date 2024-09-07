@@ -95,7 +95,10 @@ in {
           sslCertificateKey = "${tailscaleCertDir}/${tailscaleName}.key";
         };
         jellyfinProxyPass = {
-          locations."/".proxyPass = "http://localhost:8096";
+          locations."/" =  {
+            proxyPass = "http://localhost:8096";
+            proxyWebsockets = true;
+          };
         };
       in {
         "jellyfin.home.jameshollowell.com" = acmeSSL // jellyfinProxyPass;
