@@ -95,7 +95,7 @@ in {
           sslCertificateKey = "${tailscaleCertDir}/${tailscaleName}.key";
         };
         jellyfinProxyPass = {
-          locations."/" =  {
+          locations."/" = {
             proxyPass = "http://localhost:8096";
             proxyWebsockets = true;
           };

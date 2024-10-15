@@ -7,7 +7,7 @@
   # The release branch of the NixOS/nixpkgs repository on GitHub.
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
 
-  inputs.nixpkgs-me.url = "github:allout58/nixpkgs";
+  inputs.nixpkgs-me.url = "github:allout58/nixpkgs/feature/ersatztv";
 
   # region AgeNix
   inputs.agenix.url = "github:ryantm/agenix";
