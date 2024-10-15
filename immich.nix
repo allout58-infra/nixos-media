@@ -23,6 +23,8 @@
     package = pkgs-unstable.immich;
     enable = true;
     environment.IMMICH_MACHINE_LEARNING_URL = "http://localhost:3003";
+    openFirewall = true;
+    host = "0.0.0.0";
   };
 
   users.users.immich.extraGroups = ["video" "render"];
