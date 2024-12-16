@@ -5,7 +5,7 @@
   # https://nixos.org/manual/nix/unstable/command-ref/new-cli/nix3-flake.html#flake-inputs
 
   # The release branch of the NixOS/nixpkgs repository on GitHub.
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
   inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
   inputs.nixpkgs-me.url = "github:allout58/nixpkgs/feature/ersatztv";
@@ -19,7 +19,7 @@
   # endregion
 
   inputs.home-manager = {
-    url = "github:nix-community/home-manager/release-24.05";
+    url = "github:nix-community/home-manager/release-24.11";
     inputs.nixpkgs.follows = "nixpkgs";
   };
 

@@ -1,7 +1,7 @@
 {pkgs, pkgs-unstable, nixpkgs-unstable, ...}: {
-  imports = [
-    "${nixpkgs-unstable}/nixos/modules/services/web-apps/immich.nix"
-  ];
+  # imports = [
+  #   "${nixpkgs-unstable}/nixos/modules/services/web-apps/immich.nix"
+  # ];
   # virtualization = {
   #   containers.enable = true;
   #   oci-containers.backend = "podman";
@@ -20,7 +20,7 @@
   #   podman-compose
   # ];
   services.immich = {
-    package = pkgs-unstable.immich;
+    # package = pkgs-unstable.immich;
     enable = true;
     environment.IMMICH_MACHINE_LEARNING_URL = "http://localhost:3003";
     openFirewall = true;
