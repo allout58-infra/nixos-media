@@ -1,4 +1,4 @@
-{pkgs, pkgs-unstable, ...}: {
+{pkgs, ...}: {
   # 1. enable vaapi on OS-level
   nixpkgs.config.packageOverrides = pkgs: {
     vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
@@ -20,19 +20,17 @@
   services.jellyfin = {
     enable = true;
     openFirewall = true;
-    package = pkgs-unstable.jellyfin;
   };
   services.jellyseerr = {
     enable = true;
     openFirewall = true;
-    package = pkgs-unstable.jellyseerr;
   };
-  environment.systemPackages = with pkgs-unstable; [
+  environment.systemPackages = with pkgs; [
     jellyfin
     jellyfin-web
     jellyfin-ffmpeg
     jellyseerr
-    pkgs.intel-gpu-tools # for verifying hardware acceleration
-    pkgs.libva-utils
+    intel-gpu-tools # for verifying hardware acceleration
+    libva-utils
   ];
 }

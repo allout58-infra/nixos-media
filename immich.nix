@@ -1,4 +1,4 @@
-{pkgs, pkgs-unstable, nixpkgs-unstable, ...}: {
+{...}: {
   services.immich = {
     # package = pkgs-unstable.immich;
     enable = true;

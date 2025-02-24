@@ -56,7 +56,7 @@
         # pkgs-unstable = import nixpkgs-unstable {inherit system; config.allowUnfree = true;};
         # inherit nixpkgs-unstable;
       };
-      modules = [ 
+      modules = [
         ./configuration.nix
         ./media-mnt.nix
         ./jellyfin.nix
