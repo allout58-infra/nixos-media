@@ -5,8 +5,8 @@
   # https://nixos.org/manual/nix/unstable/command-ref/new-cli/nix3-flake.html#flake-inputs
 
   # The release branch of the NixOS/nixpkgs repository on GitHub.
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-  inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  # inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
   inputs.nixpkgs-me.url = "github:allout58/nixpkgs/feature/ersatztv";
 
@@ -38,7 +38,7 @@
   outputs = all @ {
     self,
     nixpkgs,
-    nixpkgs-unstable,
+    # nixpkgs-unstable,
     agenix,
     nixos-common,
     nixpkgs-me,
@@ -53,8 +53,8 @@
       system = "${system}";
       specialArgs = {
         pkgs-me = import nixpkgs-me {inherit system;};
-        pkgs-unstable = import nixpkgs-unstable {inherit system; config.allowUnfree = true;};
-        inherit nixpkgs-unstable;
+        # pkgs-unstable = import nixpkgs-unstable {inherit system; config.allowUnfree = true;};
+        # inherit nixpkgs-unstable;
       };
       modules = [ 
         ./configuration.nix
