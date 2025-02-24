@@ -10,9 +10,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  environment.systemPackages = with pkgs; [
-    at
-  ];
+  services.atd.enable = true;
 
   networking.hostName = "nixos-media";
 
