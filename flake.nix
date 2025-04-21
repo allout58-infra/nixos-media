@@ -63,6 +63,7 @@
         ./ersatztv.nix
         ./reverse-proxy.nix
         ./immich.nix
+        ./ollama.nix
         agenix.nixosModules.default
         nixos-common.nixosModules.secrets
         nixos-common.nixosModules.users
