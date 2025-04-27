@@ -19,12 +19,14 @@
   # endregion
 
   inputs.home-manager = {
-    url = "github:nix-community/home-manager/release-24.11";
+    url = "github:nix-community/home-manager";
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  inputs.nixos-common.url = "github:allout58-infra/nixos-common";
-  inputs.nixos-common.inputs.agenix.follows = "agenix";
+  inputs.nixos-common = {
+    url = "github:allout58-infra/nixos-common";
+    inputs.agenix.follows = "agenix";
+  };
 
   # It is also possible to "inherit" an input from another input. This is useful to minimize
   # flake dependencies. For example, the following sets the nixpkgs input of the top-level flake
@@ -72,6 +74,7 @@
         nixos-common.nixosModules.net.firewall
         nixos-common.nixosModules.net.tailscale
         nixos-common.nixosModules.workloads.diag
+        nixos-common.nixosModules.workloads.docker
 
         home-manager.nixosModules.home-manager
         {
