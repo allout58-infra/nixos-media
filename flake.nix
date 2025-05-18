@@ -58,6 +58,7 @@
         # pkgs-unstable = import nixpkgs-unstable {inherit system; config.allowUnfree = true;};
         # inherit nixpkgs-unstable;
       };
+      overlays = [./overlays/libation.nix];
       modules = [
         ./configuration.nix
         ./media-mnt.nix
