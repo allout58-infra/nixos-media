@@ -4,6 +4,9 @@
     openFirewall = true;
     host = "0.0.0.0";
   };
+  nixpkgs.overlays = [
+    (import ./overlays/libation.nix)
+  ];
   environment.systemPackages = [pkgs.libation];
 
   systemd.services.libation = {
