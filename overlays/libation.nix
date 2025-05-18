@@ -5,7 +5,7 @@ self: super: {
       owner = "rmcrackan";
       repo = "Libation";
       tag = "v${version}";
-      hash = "sha256-1csgi2xh951ng6vqr5jvxa2hwjmbnkp7byvlkq0f4vn0hyxzv494";
+      hash = "sha256-JJH9u4fAbuIAnnT7de60q0oOhepbloy3eTaUBLuIT7M=";
     };
   });
 }
