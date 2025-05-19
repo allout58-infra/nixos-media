@@ -7,5 +7,6 @@ self: super: {
       tag = "v${version}";
       hash = "sha256-JJH9u4fAbuIAnnT7de60q0oOhepbloy3eTaUBLuIT7M=";
     };
+    nugetDeps = ./libation-deps.json;
   });
 }
