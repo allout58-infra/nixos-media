@@ -16,8 +16,7 @@
         "/var/lib/libation:/config"
         "/mnt/media/media/Audio\ Books:/data"
       ];
-      user = "libation";
-      group = "libation";
+      user = "libation:libation";
     };
   };
 
