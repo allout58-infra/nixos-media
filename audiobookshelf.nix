@@ -1,38 +1,26 @@
-{pkgs, ...}: {
+{...}: {
   services.audiobookshelf = {
     enable = true;
     openFirewall = true;
     host = "0.0.0.0";
   };
-  nixpkgs.overlays = [
-    (import ./overlays/libation.nix)
-  ];
-  environment.systemPackages = [pkgs.libation];
 
-  systemd.services.libation = {
-    description = "Libation";
-    wantedBy = ["multi-user.target"];
-    serviceConfig = {
-      Type = "oneshot";
-      User = "libation";
-      Group = "libation";
-    };
-    script = ''
-      #!/usr/bin/env bash
-      set -euo pipefail
-      exec ${pkgs.libation}/bin/libationcli scan
-      exec ${pkgs.libation}/bin/libationcli liberate
-    '';
-  };
-  systemd.timers.libation = {
-    description = "Libation Timer";
-    wantedBy = ["timers.target"];
-    timerConfig = {
-      OnCalendar = "*-*-* *:00:00";
-      Persistent = true;
-      Unit = "libation.service";
+  virtualisation.oci-containers.containers = {
+    libation = {
+      image = "rmcrackan/libation:latest";
+      autoStart = true;
+      environment = {
+        SLEEP_TIME = "1h";
+      };
+      volumes = [
+        "/var/lib/libation:/config"
+        "/mnt/media/media/Audio\ Books:/data"
+      ];
+      user = "libation";
+      group = "libation";
     };
   };
+
   users.users.libation = {
     isSystemUser = true;
     home = "/var/lib/libation";
