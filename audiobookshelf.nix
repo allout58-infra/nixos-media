@@ -14,9 +14,8 @@
       };
       volumes = [
         "/var/lib/libation:/config"
-        "/mnt/media/media/Audio\ Books:/data"
+        "/tmp/audiobooks:/data"
       ];
-      user = "root:root";
     };
   };
 }
