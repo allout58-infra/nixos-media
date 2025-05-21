@@ -16,6 +16,7 @@
         "/var/lib/libation:/config"
         "/mnt/media/media/Audio\ Books:/data"
       ];
+      user = "root:root";
     };
   };
 }
