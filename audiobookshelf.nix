@@ -26,7 +26,7 @@
     after = [ "network.target" "podman-libation.service" ];
     serviceConfig = {
       Type = "oneshot";
-      RemainAfterExit = true;
+      RemainAfterExit = false;
       User = "root";
       ExecStart = "${pkgs.bash}/bin/bash -c 'mv /tmp/audiobooks/* \"/mnt/media/media/Audio Books/\" && rm -rf /tmp/audiobooks/*'";
     };
