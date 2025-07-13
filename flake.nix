@@ -65,6 +65,7 @@
         ./ersatztv.nix
         ./reverse-proxy.nix
         ./immich.nix
+        ./immich-frame.nix
         ./ollama.nix
         ./audiobookshelf.nix
         agenix.nixosModules.default

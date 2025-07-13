@@ -22,8 +22,8 @@
   # Libation had issues pulling directly to the mount point, so we pull to a temporary directory and then move it later
   systemd.services.libation-pull = {
     description = "Pull audiobooks from Libation";
-    wants = [ "podman-libation.service" ];
-    after = [ "network.target" "podman-libation.service" ];
+    wants = ["podman-libation.service"];
+    after = ["network.target" "podman-libation.service"];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = false;
@@ -33,7 +33,7 @@
   };
   systemd.timers.libation-pull = {
     description = "Timer to pull audiobooks from Libation";
-    wantedBy = [ "timers.target" ];
+    wantedBy = ["timers.target"];
     timerConfig = {
       OnBootSec = "5min";
       OnUnitActiveSec = "1h";
