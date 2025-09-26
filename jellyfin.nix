@@ -1,7 +1,10 @@
 {pkgs, ...}: {
   # 1. enable vaapi on OS-level
-  nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
+  nixpkgs.config = {
+    packageOverrides = pkgs: {
+      vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
+    };
+    permittedInsecurePackages = ["intel-media-sdk-23.2.2"]; # needed for QSV on 11th gen or older, and no upgrade is available
   };
   hardware.graphics = {
     enable = true;
