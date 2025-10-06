@@ -72,6 +72,7 @@
         ./immich-frame.nix
         ./ollama.nix
         ./audiobookshelf.nix
+        ./booklore.nix
         agenix.nixosModules.default
         nixos-common.nixosModules.secrets
         nixos-common.nixosModules.users
