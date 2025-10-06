@@ -57,7 +57,7 @@ in {
       "podman-compose-booklore-root.target"
     ];
   };
-  virtualisation.oci-containers.containers."mariadb" = {
+  virtualisation.oci-containers.containers."booklore-mariadb" = {
     image = "lscr.io/linuxserver/mariadb:11.4.5";
     environment = {
       "MYSQL_DATABASE" = "booklore";
