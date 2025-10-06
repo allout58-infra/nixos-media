@@ -31,7 +31,7 @@ in {
       "6060:6060/tcp"
     ];
     dependsOn = [
-      "mariadb"
+      "booklore-mariadb"
     ];
     log-driver = "journald";
     extraOptions = [
