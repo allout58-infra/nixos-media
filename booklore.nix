@@ -6,13 +6,13 @@
   ...
 }: let
   dbPassword = "Ounce-Recliner8-Cattishly-Depress";
-  rootDbPassword = "super_secure_password";
+  rootDbPassword = "Uneasy2-Snowfall-Barman-Savings";
   user = "1000";
   group = "1000";
 in {
   # Containers
   virtualisation.oci-containers.containers."booklore" = {
-    image = "docker.io/booklore/booklore-app:latest";
+    image = "ghcr.io/booklore-app/booklore:latest";
     environment = {
       "DATABASE_PASSWORD" = dbPassword;
       "DATABASE_URL" = "jdbc:mariadb://mariadb:3306/booklore";
