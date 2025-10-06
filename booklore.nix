@@ -7,6 +7,8 @@
 }: let
   dbPassword = "Ounce-Recliner8-Cattishly-Depress";
   rootDbPassword = "super_secure_password";
+  user = "1000";
+  group = "1000";
 in {
   # Containers
   virtualisation.oci-containers.containers."booklore" = {
@@ -15,8 +17,8 @@ in {
       "DATABASE_PASSWORD" = dbPassword;
       "DATABASE_URL" = "jdbc:mariadb://mariadb:3306/booklore";
       "DATABASE_USERNAME" = "booklore";
-      "PGID" = "1000";
-      "PUID" = "1000";
+      "PGID" = group;
+      "PUID" = user;
       "SWAGGER_ENABLED" = "true";
       "TZ" = "America/New_York";
     };
@@ -46,6 +48,7 @@ in {
     ];
     requires = [
       "podman-network-booklore_default.service"
+      "podman-booklore-mariadb.service"
     ];
     partOf = [
       "podman-compose-booklore-root.target"
@@ -61,8 +64,8 @@ in {
       "MYSQL_PASSWORD" = dbPassword;
       "MYSQL_ROOT_PASSWORD" = rootDbPassword;
       "MYSQL_USER" = "booklore";
-      "PGID" = "1000";
-      "PUID" = "1000";
+      "PGID" = group;
+      "PUID" = user;
       "TZ" = "America/New_York";
     };
     volumes = [
@@ -78,7 +81,7 @@ in {
       "--network=booklore_default"
     ];
   };
-  systemd.services."podman-mariadb" = {
+  systemd.services."podman-booklore-mariadb" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "always";
     };
@@ -94,6 +97,17 @@ in {
     wantedBy = [
       "podman-compose-booklore-root.target"
     ];
+  };
+
+  systemd.tmpfiles.settings.booklore = {
+    "/var/lib/booklore/data"."d" = {
+      mode = "700";
+      inherit user group;
+    };
+    "/var/lib/booklore/mariadb/config"."d" = {
+      mode = "700";
+      inherit user group;
+    };
   };
 
   # Networks
