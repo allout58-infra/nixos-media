@@ -28,7 +28,7 @@
       Type = "oneshot";
       RemainAfterExit = false;
       User = "root";
-      ExecStart = "${pkgs.bash}/bin/bash -c 'mv /tmp/audiobooks/* \"/mnt/media/media/Audio Books/\" && rm -rf /tmp/audiobooks/*'";
+      ExecStart = "${pkgs.bash}/bin/bash -c 'mkdir -p /tmp/audiobooks && chmod -R 775 /tmp/audiobooks && mv /tmp/audiobooks/* \"/mnt/media/media/Audio Books/\" && rm -rf /tmp/audiobooks/*'";
     };
   };
   systemd.timers.libation-pull = {
