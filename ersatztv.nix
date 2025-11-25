@@ -4,7 +4,7 @@
     openFirewall = true;
     environment = {
       ETV_BASE_URL = "/";
-      ETV_UI_PORT = 8409;
+      ETV_UI_PORT = "8409";
     };
   };
 }
