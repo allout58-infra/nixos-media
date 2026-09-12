@@ -11,12 +11,6 @@
 
   inputs.nixpkgs-me.url = "github:allout58/nixpkgs/feature/ersatztv";
 
-  # TEMPORARY (Phase 3): hold Jellyfin at 10.11.11 while Immich 3 is validated.
-  # This is the rev the system was running before the Phase 3 flake update, so it
-  # resolves to the exact derivation already in the store - no rebuild, no risk.
-  # Remove this input, its specialArgs entry, and the pins in jellyfin.nix in Phase 4.
-  inputs.nixpkgs-jf-pin.url = "github:NixOS/nixpkgs/567a49d1913ce81ac6e9582e3553dd90a955875f";
-
   # region AgeNix
   inputs.agenix.url = "github:ryantm/agenix";
   # optional, not necessary for the module
@@ -51,7 +45,6 @@
     agenix,
     nixos-common,
     nixpkgs-me,
-    nixpkgs-jf-pin,
     home-manager,
     ...
   }: let
@@ -62,7 +55,6 @@
     nixosConfigurations.nixos-media = nixpkgs.lib.nixosSystem {
       system = "${system}";
       specialArgs = {
-        pkgs-jf-pin = import nixpkgs-jf-pin {inherit system;};
         pkgs-me = import nixpkgs-me {inherit system;};
         pkgs-old = import nixpkgs-old {
           inherit system;
