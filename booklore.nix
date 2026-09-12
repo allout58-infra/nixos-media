@@ -100,6 +100,13 @@ in {
   };
 
   systemd.tmpfiles.settings.booklore = {
+    # /tmp is cleared on boot, so this bind-mount target vanishes and podman-booklore
+    # fails with "statfs /tmp/booklore/bookdrop: no such file or directory", burning its
+    # 5 restarts and staying dead until someone recreates it by hand. Recreate on boot.
+    "/tmp/booklore/bookdrop"."d" = {
+      mode = "755";
+      inherit user group;
+    };
     "/var/lib/booklore/data"."d" = {
       mode = "700";
       inherit user group;

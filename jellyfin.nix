@@ -1,6 +1,7 @@
 {
   pkgs,
   pkgs-old,
+  pkgs-jf-pin,
   ...
 }: {
   # 1. enable vaapi on OS-level
@@ -26,18 +27,21 @@
 
   # 2. enable jellyfin
   services.jellyfin = {
+    # TEMPORARY (Phase 3): pinned to pre-12.0 while Immich 3 soaks. Remove in Phase 4.
+    package = pkgs-jf-pin.jellyfin;
     enable = true;
     openFirewall = true;
   };
-  services.jellyseerr = {
+  services.seerr = {
     enable = true;
     openFirewall = true;
   };
   environment.systemPackages = with pkgs; [
-    jellyfin
-    jellyfin-web
-    jellyfin-ffmpeg
-    jellyseerr
+    # TEMPORARY (Phase 3): keep CLI tools in step with the pinned server.
+    pkgs-jf-pin.jellyfin
+    pkgs-jf-pin.jellyfin-web
+    pkgs-jf-pin.jellyfin-ffmpeg
+    seerr
     intel-gpu-tools # for verifying hardware acceleration
     libva-utils
   ];
