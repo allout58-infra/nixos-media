@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{...}: {
   services.audiobookshelf = {
     enable = true;
     openFirewall = true;
@@ -19,17 +19,43 @@
     };
   };
 
+  # /tmp is cleared on boot, which removes the bind-mount source out from under
+  # the libation container. The service below re-creates it too, but the
+  # container starts independently and needs it to already exist.
+  systemd.tmpfiles.settings.libation = {
+    "/tmp/audiobooks"."d" = {
+      mode = "775";
+      user = "root";
+      group = "root";
+    };
+  };
+
   # Libation had issues pulling directly to the mount point, so we pull to a temporary directory and then move it later
   systemd.services.libation-pull = {
     description = "Pull audiobooks from Libation";
     wants = ["podman-libation.service"];
     after = ["network.target" "podman-libation.service"];
+    # Without this, a NAS mount that is down means moving books into the empty
+    # local mountpoint instead of the NAS -- silent misplacement, not a failure.
+    unitConfig.RequiresMountsFor = "/mnt/media";
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = false;
       User = "root";
-      ExecStart = "${pkgs.bash}/bin/bash -c 'mkdir -p /tmp/audiobooks && chmod -R 775 /tmp/audiobooks && mv /tmp/audiobooks/* \"/mnt/media/media/Audio Books/\" && rm -rf /tmp/audiobooks/*'";
     };
+    # `nullglob` makes "no new books" a success. Without it the unmatched glob was
+    # passed to mv literally, mv exited non-zero, and the && chain left this unit
+    # `failed` every hour -- 358 failures between 2026-09-05 and 2026-09-12.
+    script = ''
+      shopt -s nullglob
+      books=(/tmp/audiobooks/*)
+      if [ ''${#books[@]} -eq 0 ]; then
+        echo "No new audiobooks to move."
+        exit 0
+      fi
+      mv -- "''${books[@]}" "/mnt/media/media/Audio Books/"
+      echo "Moved ''${#books[@]} item(s) to the audiobook library."
+    '';
   };
   systemd.timers.libation-pull = {
     description = "Timer to pull audiobooks from Libation";
@@ -37,9 +63,7 @@
     timerConfig = {
       OnBootSec = "5min";
       OnUnitActiveSec = "1h";
-    };
-    unitConfig = {
-      PartOf = "libation-pull.service";
+      Unit = "libation-pull.service";
     };
   };
 }

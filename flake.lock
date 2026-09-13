@@ -119,22 +119,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-me": {
-      "locked": {
-        "lastModified": 1763461245,
-        "narHash": "sha256-BZIgWPW+EIGEYo1xe5w6wu9xaUj3VUa3wmgeBj2Soi0=",
-        "owner": "allout58",
-        "repo": "nixpkgs",
-        "rev": "5cf1b92c066f7e5c0427c781bed317a196591171",
-        "type": "github"
-      },
-      "original": {
-        "owner": "allout58",
-        "ref": "feature/ersatztv",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-old": {
       "locked": {
         "lastModified": 1767313136,
@@ -173,7 +157,6 @@
         "home-manager": "home-manager_2",
         "nixos-common": "nixos-common",
         "nixpkgs": "nixpkgs_2",
-        "nixpkgs-me": "nixpkgs-me",
         "nixpkgs-old": "nixpkgs-old"
       }
     },

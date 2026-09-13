@@ -14,5 +14,17 @@
       ];
     };
   };
+
+  # This bind-mount source was previously created by hand and existed nowhere in
+  # the config. Declare it so a fresh install (or an accidental removal) does not
+  # leave podman failing on a missing statfs target.
+  systemd.tmpfiles.settings.immich-frame = {
+    "/opt/immich-frame"."d" = {
+      mode = "755";
+      user = "root";
+      group = "root";
+    };
+  };
+
   networking.firewall.allowedTCPPorts = [8080];
 }

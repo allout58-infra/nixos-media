@@ -9,8 +9,6 @@
   inputs.nixpkgs-old.url = "github:NixOS/nixpkgs/nixos-25.05";
   # inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-  inputs.nixpkgs-me.url = "github:allout58/nixpkgs/feature/ersatztv";
-
   # region AgeNix
   inputs.agenix.url = "github:ryantm/agenix";
   # optional, not necessary for the module
@@ -44,7 +42,6 @@
     nixpkgs-old,
     agenix,
     nixos-common,
-    nixpkgs-me,
     home-manager,
     ...
   }: let
@@ -55,7 +52,6 @@
     nixosConfigurations.nixos-media = nixpkgs.lib.nixosSystem {
       system = "${system}";
       specialArgs = {
-        pkgs-me = import nixpkgs-me {inherit system;};
         pkgs-old = import nixpkgs-old {
           inherit system;
           config.allowUnfree = true;
