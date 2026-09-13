@@ -5,8 +5,6 @@
   config,
   ...
 }: let
-  dbPassword = "Ounce-Recliner8-Cattishly-Depress";
-  rootDbPassword = "Uneasy2-Snowfall-Barman-Savings";
   user = "1000";
   group = "1000";
 in {
@@ -14,7 +12,6 @@ in {
   virtualisation.oci-containers.containers."booklore" = {
     image = "ghcr.io/booklore-app/booklore:latest";
     environment = {
-      "DATABASE_PASSWORD" = dbPassword;
       "DATABASE_URL" = "jdbc:mariadb://mariadb:3306/booklore";
       "DATABASE_USERNAME" = "booklore";
       "PGID" = group;
@@ -22,6 +19,8 @@ in {
       "SWAGGER_ENABLED" = "true";
       "TZ" = "America/New_York";
     };
+    # DATABASE_PASSWORD -- was plaintext in this file until agenix.
+    environmentFiles = [config.age.secrets."booklore-db".path];
     volumes = [
       "/tmp/booklore/bookdrop:/bookdrop:rw"
       "/mnt/media/media/EBooks:/books:rw"
@@ -61,13 +60,13 @@ in {
     image = "lscr.io/linuxserver/mariadb:11.4.5";
     environment = {
       "MYSQL_DATABASE" = "booklore";
-      "MYSQL_PASSWORD" = dbPassword;
-      "MYSQL_ROOT_PASSWORD" = rootDbPassword;
       "MYSQL_USER" = "booklore";
       "PGID" = group;
       "PUID" = user;
       "TZ" = "America/New_York";
     };
+    # MYSQL_PASSWORD + MYSQL_ROOT_PASSWORD -- see booklore-db.age in nixos-common.
+    environmentFiles = [config.age.secrets."booklore-db".path];
     volumes = [
       "/var/lib/booklore/mariadb/config:/config:rw"
     ];
