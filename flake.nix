@@ -61,6 +61,7 @@
       modules = [
         ./configuration.nix
         ./media-mnt.nix
+        ./memory.nix
         ./jellyfin.nix
         ./ersatztv.nix
         ./reverse-proxy.nix
