@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   # ---------------------------------------------------------------------------
   # Memory resilience.
   #
@@ -80,4 +80,8 @@
   # diagnosing it. sar snapshots memory, swap, load and I/O every 10 minutes
   # into /var/log/sa/, which survives a hard power cut.
   services.sysstat.enable = true;
+
+  # The sysstat module installs the collector but not the CLI, so everything it
+  # gathers is unreadable without hunting the binary out of /nix/store by hand.
+  environment.systemPackages = [pkgs.sysstat];
 }
